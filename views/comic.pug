@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    h1=safe_title
+    small Randall Munroe &middot; #{year}/#{month}/#{day} &middot; xkcd #{num}
+
+    figure
+        img(src=img, title=alt)
+        figcaption=alt
+
+    ul.tools
+        li
+            a(href=`//explainxkcd.com/${num}`, target='_blank') Explain
+        li
+            a(href=img, target='_blank', download) Download
+        li
+            a(href=`//xkcd.com/${num}`) View on xkcd.com
+
+    nav
+        ul
+            li
+                a(href='/1') First
+            li#prev
+                a(href=`/${num - 1}`) Previous
+            li#rand
+                a(href=`#`) Random
+            li#next
+                a(href=`/${num + 1}`) Next
+            li
+                a(href='/') Latest

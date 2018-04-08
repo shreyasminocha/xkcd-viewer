@@ -1,0 +1,16 @@
+doctype html
+
+html
+    head
+        title xkcd: #{safe_title}
+        link(rel='icon' type='image/x-icon' href='/img/favicon.ico')
+        link(rel='stylesheet', href='/css/style.css')
+
+    body
+        block content
+
+    footer
+        //- &#32; is a space. I've set my editor to remove trailing whitespace.
+        small Used under the&#32;
+            a(href='//creativecommons.org/licenses/by-nc/2.5') Creative Commons Attribution-NonCommercial 2.5 License
+            | .
