@@ -153,6 +153,10 @@ img {
     padding-right: 0;
 }
 
+.tools {
+    font-size: 90%;
+}
+
 footer {
     margin-bottom: 1em;
 }

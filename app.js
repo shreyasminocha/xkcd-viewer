@@ -24,6 +24,18 @@ app.get('/:comic?', (req, res, next) => {
 
 });
 
+app.get('/random', (req, res, next) => {
+    request('https://www.xkcd.com/info.0.json', (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+            const latest = JSON.parse(body).num;
+            const random = Math.floor(Math.random() * latest) + 1;
+            res.redirect(300, `/${random}`);
+        } else {
+            next();
+        }
+    });
+});
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     const err = new Error('Not Found');
