@@ -1,15 +1,32 @@
 {
-    "name": "xkcd",
+    "name": "xkcd-viewer",
     "version": "0.0.0",
-    "private": true,
     "scripts": {
         "start": "node ./bin/www"
     },
     "dependencies": {
         "debug": "~2.2.0",
         "express": "~4.14.0",
-        "morgan": "~1.7.0",
+        "morgan": "^1.9.0",
         "pug": "^2.0.3",
         "request": "^2.85.0"
-    }
+    },
+    "description": "Provides a neat interface to browse xkcd",
+    "main": "app.js",
+    "devDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/shreyasminocha/xkcd-viewer.git"
+    },
+    "keywords": [
+        "xkcd",
+        "viewer",
+        "xkcd-viewer"
+    ],
+    "author": "Shreyas Minocha",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/shreyasminocha/xkcd-viewer/issues"
+    },
+    "homepage": "https://github.com/shreyasminocha/xkcd-viewer#readme"
 }

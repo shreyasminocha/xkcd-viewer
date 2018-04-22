@@ -1,14 +1,21 @@
 body {
     color: #606c76;
-    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
     font-family: 'Neucha';
+    font-size: 1.2em;
     letter-spacing: 0.01em;
     line-height: 1.6;
-    padding: 50px;
-    text-align: center;
-    width: 75%;
     margin: 0 auto;
+    min-height: 100vh;
+    padding: 50px;
     padding: 0;
+    text-align: center;
+    width: 65%;
+}
+
+main {
+  flex: 1;
 }
 
 a {
@@ -28,10 +35,10 @@ article, aside, footer, header, nav, section {
 }
 
 h1 {
-    font-size: 3em;
-    margin: 0;
     font-family: 'Patrick Hand';
+    font-size: 3em;
     line-height: 1.2;
+    margin: 0;
 }
 
 figcaption, figure, main {
@@ -146,11 +153,18 @@ img {
 
 .tools li, nav ul li {
     display: inline;
-    padding-right: 1em;
+}
+
+.tools li {
+    margin-right: 1em;
+}
+
+nav ul li {
+    margin-right: 2em;
 }
 
 .tools li:last-child, nav ul li:last-child {
-    padding-right: 0;
+    margin-right: 0;
 }
 
 .tools {
@@ -158,10 +172,14 @@ img {
 }
 
 footer {
-    margin-bottom: 1em;
+    padding: 0.5em 0;
 }
 
 pre {
     overflow: auto;
     text-align: left;
+}
+
+nav ul li {
+    width: 32px;
 }

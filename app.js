@@ -2,34 +2,37 @@
 
 const express = require('express');
 const path = require('path');
+const get = require('request').get;
+const logger = require('morgan');
 
 const app = express();
-const request = require('request');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
 app.use(express.static(path.join(__dirname, 'static')));
+app.use(logger('dev'));
 
 // routes
 app.get('/:comic?', (req, res, next) => {
     const number = req.params.comic || '';
 
-    request(`https://www.xkcd.com/${number}/info.0.json`, (error, response, body) => {
+    get(`https://www.xkcd.com/${number}/info.0.json`, (error, response, body) => {
         if (!error && response.statusCode === 200) {
             res.render('comic', JSON.parse(body));
         } else {
             next();
         }
     });
-
 });
 
 app.get('/random', (req, res, next) => {
-    request('https://www.xkcd.com/info.0.json', (error, response, body) => {
+    get('https://www.xkcd.com/info.0.json', (error, response, body) => {
         if (!error && response.statusCode === 200) {
             const latest = JSON.parse(body).num;
             const random = Math.floor(Math.random() * latest) + 1;
-            res.redirect(300, `/${random}`);
+
+            res.redirect(`/${random}`);
         } else {
             next();
         }
@@ -48,7 +51,7 @@ app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-    res.locals.title = err.message;
+    res.locals.safe_title = err.message;
 
     // render the error page
     res.status(err.status || 500);
