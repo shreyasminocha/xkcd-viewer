@@ -17,7 +17,7 @@ app.use(logger('dev'));
 app.get('/:comic?', (req, res, next) => {
     const number = req.params.comic || '';
 
-    get(`https://www.xkcd.com/${number}/info.0.json`, (error, response, body) => {
+    get(`https://xkcd.com/${number}/info.0.json`, (error, response, body) => {
         if (!error && response.statusCode === 200) {
             res.render('comic', JSON.parse(body));
         } else {
@@ -27,7 +27,7 @@ app.get('/:comic?', (req, res, next) => {
 });
 
 app.get('/random', (req, res, next) => {
-    get('https://www.xkcd.com/info.0.json', (error, response, body) => {
+    get('https://xkcd.com/info.0.json', (error, response, body) => {
         if (!error && response.statusCode === 200) {
             const latest = JSON.parse(body).num;
             const random = Math.floor(Math.random() * latest) + 1;
