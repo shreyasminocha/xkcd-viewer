@@ -1,5 +1,6 @@
 'use strict';
 
+const zeroPad = require('./lib/zeroPad');
 const express = require('express');
 const path = require('path');
 const get = require('request').get;
@@ -19,7 +20,11 @@ app.get('/:comic?', (req, res, next) => {
 
     get(`https://xkcd.com/${number}/info.0.json`, (error, response, body) => {
         if (!error && response.statusCode === 200) {
-            res.render('comic', JSON.parse(body));
+            body = JSON.parse(body);
+            body.month = zeroPad(body.month, 2);
+            body.day = zeroPad(body.day, 2);
+
+            res.render('comic', body);
         } else {
             next();
         }
