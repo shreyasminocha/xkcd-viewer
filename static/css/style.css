@@ -1,3 +1,13 @@
+@font-face {
+    font-family: Neucha;
+    src: local('Neucha'), url(/fonts/neucha.otf);
+}
+
+@font-face {
+    font-family: 'Patrick Hand';
+    src: local('Patrick Hand'), url(/fonts/patrick-hand.ttf);
+}
+
 body {
     color: #606c76;
     display: flex;
