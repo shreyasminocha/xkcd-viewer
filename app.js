@@ -27,8 +27,8 @@ app.get('/:comic?', async (req, res, next) => {
         const response = await getComicData(number);
 
         let body = JSON.parse(response.body);
-        body.month = zeroPad(response.body.month, 2);
-        body.day = zeroPad(response.body.day, 2);
+        body.month = zeroPad(body.month, 2);
+        body.day = zeroPad(body.day, 2);
 
         res.render('comic', body);
     } catch (err) {
