@@ -1,10 +1,10 @@
 'use strict';
 
-const zeroPad = require('./lib/zeroPad');
 const express = require('express');
 const path = require('path');
-const get = require('request').get;
+const get = require('got').get;
 const logger = require('morgan');
+const zeroPad = require('./lib/zeroPad');
 
 const app = express();
 
@@ -14,48 +14,49 @@ app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(logger('dev'));
 
+function getComicData(number) {
+    number = number || '';
+    return get(`https://xkcd.com/${number}/info.0.json`);
+}
+
 // routes
-app.get('/:comic?', (req, res, next) => {
+app.get('/:comic?', async (req, res, next) => {
     const number = req.params.comic || '';
 
-    get(`https://xkcd.com/${number}/info.0.json`, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-            body = JSON.parse(body);
-            body.month = zeroPad(body.month, 2);
-            body.day = zeroPad(body.day, 2);
+    try {
+        const response = await getComicData(number);
 
-            res.render('comic', body);
-        } else {
-            next();
-        }
-    });
+        let body = JSON.parse(response.body);
+        body.month = zeroPad(response.body.month, 2);
+        body.day = zeroPad(response.body.day, 2);
+
+        res.render('comic', body);
+    } catch (err) {
+        next();
+    }
 });
 
-app.get('/random', (req, res, next) => {
-    get('https://xkcd.com/info.0.json', (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-            const latest = JSON.parse(body).num;
-            const random = Math.floor(Math.random() * latest) + 1;
+app.get('/random', async (req, res, next) => {
+    try {
+        const response = await getComicData();
+        let body = JSON.parse(response.body);
 
-            res.redirect(`/${random}`);
-        } else {
-            next();
-        }
-    });
+        const latest = body.num;
+        const random = Math.floor(Math.random() * latest) + 1;
+
+        res.redirect(`/${random}`);
+    } catch (err) {
+        next();
+    }
 });
 
-// catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use((req, res) => {
     const err = new Error('Not Found');
     err.status = 404;
-    next(err);
-});
 
-// error handler
-app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.locals.error = process.env.DEBUG !== undefined ? err : {};
     res.locals.safe_title = err.message;
 
     // render the error page
