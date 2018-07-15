@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const get = require('got').get;
 const logger = require('morgan');
-const zeroPad = require('./lib/zeroPad');
+const zeroPad = require('zero-pad');
 
 const app = express();
 
@@ -27,8 +27,8 @@ app.get('/:comic?', async (req, res, next) => {
         const response = await getComicData(number);
 
         let body = JSON.parse(response.body);
-        body.month = zeroPad(body.month, 2);
-        body.day = zeroPad(body.day, 2);
+        body.month = zeroPad(body.month);
+        body.day = zeroPad(body.day);
 
         res.render('comic', body);
     } catch (err) {
