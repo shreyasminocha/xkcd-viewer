@@ -14,7 +14,7 @@
         "zero-pad": "^1.1.0"
     },
     "description": "Provides a neat interface to browse xkcd",
-    "main": "app.js",
+    "main": "./bin/www",
     "devDependencies": {},
     "repository": {
         "type": "git",
