@@ -1,8 +1,7 @@
 extends layout
 
 block content
-    h1 #{error.status}: #{message}
-    img(src="/img/404.png" alt="Not found")
-    pre #{error.stack}
+    img(src="/img/oops.png", alt="Oops")
+    h1 #{message}
 
     a(href="/") Perhaps you want to read the latest comic instead?

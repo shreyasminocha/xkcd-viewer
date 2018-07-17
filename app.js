@@ -20,21 +20,6 @@ function getComicData(number) {
 }
 
 // routes
-app.get('/:comic?', async (req, res, next) => {
-    const number = req.params.comic || '';
-
-    try {
-        const response = await getComicData(number);
-
-        let body = JSON.parse(response.body);
-        body.month = zeroPad(body.month);
-        body.day = zeroPad(body.day);
-
-        res.render('comic', body);
-    } catch (err) {
-        next();
-    }
-});
 
 app.get('/random', async (req, res, next) => {
     try {
@@ -46,18 +31,37 @@ app.get('/random', async (req, res, next) => {
 
         res.redirect(`/${random}`);
     } catch (err) {
-        next();
+        next(err);
     }
 });
 
-app.use((req, res) => {
-    const err = new Error('Not Found');
-    err.status = 404;
+app.get('/:comic?', async (req, res, next) => {
+    const number = req.params.comic;
 
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = process.env.DEBUG !== undefined ? err : {};
+    try {
+        const response = await getComicData(number);
+        let body = JSON.parse(response.body);
+
+        body.month = zeroPad(body.month);
+        body.day = zeroPad(body.day);
+
+        res.render('comic', body);
+    } catch (err) {
+        next(err);
+    }
+});
+
+app.use((err, req, res, next) => {
     res.locals.safe_title = err.message;
+    res.locals.message = err.message;
+
+    if (process.env.DEBUG !== undefined) {
+        res.locals.trace = err;
+    }
+
+    if (err.message === 'Response code 404 (Not Found)') {
+        err.status = 404;
+    }
 
     // render the error page
     res.status(err.status || 500);
