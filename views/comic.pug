@@ -21,15 +21,20 @@ block content
             li
                 a(href='/1')
                     img(src='/img/icons/first.svg' alt='First' title='First')
-            li
-                a(href=`/${num - 1}`)
-                    img(src='/img/icons/previous.svg' alt='Previous' title='Previous')
+
+            unless num == 1
+                li
+                    a(href=`/${num - 1}`)
+                        img(src='/img/icons/previous.svg' alt='Previous' title='Previous')
+
             li
                 a(href='/random')
                     img(src='/img/icons/random.svg' alt='Random' title='Random')
+
             li
                 a(href=`/${num + 1}`)
                     img(src='/img/icons/next.svg' alt='Next' title='Next')
+
             li
                 a(href='/')
                     img(src='/img/icons/latest.svg' alt='Latest' title='Latest')
