@@ -2,10 +2,11 @@ extends layout
 
 block content
     h1=safe_title
+    
     small Randall Munroe &middot; #{year}&#x2011;#{month}&#x2011;#{day} &middot; xkcd #{num}
 
     figure
-        img(src=img, title=alt)
+        img(src=img, alt=`xkcd ${num}`, title=alt)
         figcaption=alt
 
     ul.tools
@@ -18,11 +19,11 @@ block content
 
     nav
         ul
-            li
-                a(href='/1')
-                    img(src='/img/icons/first.svg' alt='First' title='First')
-
             unless num == 1
+                li
+                    a(href='/1')
+                        img(src='/img/icons/first.svg' alt='First' title='First')
+
                 li
                     a(href=`/${num - 1}`)
                         img(src='/img/icons/previous.svg' alt='Previous' title='Previous')
@@ -31,13 +32,15 @@ block content
                 a(href='/random')
                     img(src='/img/icons/random.svg' alt='Random' title='Random')
 
-            li
-                a(href=`/${num + 1}`)
-                    img(src='/img/icons/next.svg' alt='Next' title='Next')
+            unless isLatest
+                li
+                    a(href=`/${num + 1}`)
+                        img(src='/img/icons/next.svg' alt='Next' title='Next')
+    
+                li
+                    a(href='/')
+                        img(src='/img/icons/latest.svg' alt='Latest' title='Latest')
 
-            li
-                a(href='/')
-                    img(src='/img/icons/latest.svg' alt='Latest' title='Latest')
 
 block footer
     small Comics used under the 

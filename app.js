@@ -44,6 +44,8 @@ app.get('/:comic?', async (req, res, next) => {
 
         body.month = zeroPad(body.month);
         body.day = zeroPad(body.day);
+        
+        if (number === undefined) body.isLatest = true;
 
         res.render('comic', body);
     } catch (err) {
