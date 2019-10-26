@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "scripts": {
         "start": "node ./bin/www",
-        "test": "eslint app.js lib/**/*.js"
+        "test": "xo"
     },
     "dependencies": {
         "debug": "^3.1.0",
@@ -15,7 +15,9 @@
     },
     "description": "Provides a neat interface to browse xkcd",
     "main": "./bin/www",
-    "devDependencies": {},
+    "devDependencies": {
+        "xo": "^0.24.0"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/shreyasminocha/xkcd-viewer.git"
@@ -34,5 +36,8 @@
     "now": {
         "name": "xkcd",
         "alias": "xkcd-viewer"
+    },
+    "xo": {
+        "space": 4
     }
 }
