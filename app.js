@@ -1,8 +1,6 @@
-'use strict';
-
-const express = require('express');
 const path = require('path');
-const get = require('got').get;
+const express = require('express');
+const {get} = require('got');
 const logger = require('morgan');
 const zeroPad = require('zero-pad');
 
@@ -19,18 +17,17 @@ function getComicData(number) {
     return get(`https://xkcd.com/${number}/info.0.json`);
 }
 
-// routes
-
 app.get('/random', async (req, res, next) => {
-    let response, body;
-    
+    let response;
+    let body;
+
     try {
         response = await getComicData();
         body = JSON.parse(response.body);
-    } catch (err) {
-        next(err);
+    } catch (error) {
+        next(error);
     }
-    
+
     const latest = body.num;
     const random = Math.floor(Math.random() * latest) + 1;
 
@@ -39,26 +36,29 @@ app.get('/random', async (req, res, next) => {
 
 app.get('/:comic?', async (req, res, next) => {
     const number = req.params.comic;
-    
-    let response, body;
+
+    let response;
+    let body;
 
     try {
         response = await getComicData(number);
         body = JSON.parse(response.body);
-    } catch (err) {
-        next(err);
+    } catch (error) {
+        next(error);
     }
-    
+
     body.month = zeroPad(body.month);
     body.day = zeroPad(body.day);
-    
-    if (number === undefined) body.isLatest = true;
+
+    if (number === undefined) {
+        body.isLatest = true;
+    }
 
     res.render('comic', body);
 });
 
 app.use((err, req, res) => {
-    res.locals.safe_title = err.message;
+    res.locals.safe_title = err.message; // eslint-disable-line camelcase
     res.locals.message = err.message;
 
     if (process.env.DEBUG !== undefined) {
@@ -69,7 +69,6 @@ app.use((err, req, res) => {
         err.status = 404;
     }
 
-    // render the error page
     res.status(err.status || 500);
     res.render('error');
 });
