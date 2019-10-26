@@ -22,38 +22,42 @@ function getComicData(number) {
 // routes
 
 app.get('/random', async (req, res, next) => {
+    let response, body;
+    
     try {
-        const response = await getComicData();
-        let body = JSON.parse(response.body);
-
-        const latest = body.num;
-        const random = Math.floor(Math.random() * latest) + 1;
-
-        res.redirect(`/${random}`);
+        response = await getComicData();
+        body = JSON.parse(response.body);
     } catch (err) {
         next(err);
     }
+    
+    const latest = body.num;
+    const random = Math.floor(Math.random() * latest) + 1;
+
+    res.redirect(`/${random}`);
 });
 
 app.get('/:comic?', async (req, res, next) => {
     const number = req.params.comic;
+    
+    let response, body;
 
     try {
-        const response = await getComicData(number);
-        let body = JSON.parse(response.body);
-
-        body.month = zeroPad(body.month);
-        body.day = zeroPad(body.day);
-        
-        if (number === undefined) body.isLatest = true;
-
-        res.render('comic', body);
+        response = await getComicData(number);
+        body = JSON.parse(response.body);
     } catch (err) {
         next(err);
     }
+    
+    body.month = zeroPad(body.month);
+    body.day = zeroPad(body.day);
+    
+    if (number === undefined) body.isLatest = true;
+
+    res.render('comic', body);
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     res.locals.safe_title = err.message;
     res.locals.message = err.message;
 
