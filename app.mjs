@@ -1,15 +1,14 @@
-const path = require('path');
-const express = require('express');
-const {get} = require('got');
-const logger = require('morgan');
-const zeroPad = require('zero-pad');
+import express from 'express';
+import get from 'got';
+import logger from 'morgan';
+import zeroPad from 'zero-pad';
 
 const app = express();
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', './views');
 app.set('view engine', 'pug');
 
-app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static('./static'));
 app.use(logger('dev'));
 
 function getComicData(number) {
@@ -17,7 +16,7 @@ function getComicData(number) {
     return get(`https://xkcd.com/${number}/info.0.json`);
 }
 
-app.get('/random', async (req, res, next) => {
+app.get('/random', async (request, res, next) => {
     let response;
     let body;
 
@@ -34,8 +33,8 @@ app.get('/random', async (req, res, next) => {
     res.redirect(`/${random}`);
 });
 
-app.get('/:comic?', async (req, res, next) => {
-    const number = req.params.comic;
+app.get('/:comic?', async (request, res, next) => {
+    const number = request.params.comic;
 
     let response;
     let body;
@@ -57,20 +56,20 @@ app.get('/:comic?', async (req, res, next) => {
     res.render('comic', body);
 });
 
-app.use((err, req, res) => {
-    res.locals.safe_title = err.message; // eslint-disable-line camelcase
-    res.locals.message = err.message;
+app.use((error, request, res) => {
+    res.locals.safe_title = error.message; // eslint-disable-line camelcase
+    res.locals.message = error.message;
 
     if (process.env.DEBUG !== undefined) {
-        res.locals.trace = err;
+        res.locals.trace = error;
     }
 
-    if (err.message === 'Response code 404 (Not Found)') {
-        err.status = 404;
+    if (error.message === 'Response code 404 (Not Found)') {
+        error.status = 404;
     }
 
-    res.status(err.status || 500);
+    res.status(error.status || 500);
     res.render('error');
 });
 
-module.exports = app;
+export default app;
