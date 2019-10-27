@@ -2,7 +2,7 @@
     "name": "xkcd-viewer",
     "version": "0.1.0",
     "scripts": {
-        "start": "node ./bin/www",
+        "start": "node --experimental-modules --no-warnings app.mjs",
         "test": "xo"
     },
     "dependencies": {
@@ -14,7 +14,7 @@
         "zero-pad": "^1.1.0"
     },
     "description": "Provides a neat interface to browse xkcd",
-    "main": "./bin/www",
+    "main": "./app.mjs",
     "devDependencies": {
         "xo": "^0.24.0"
     },
