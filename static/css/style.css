@@ -64,6 +64,10 @@ figure {
     margin: 1em 40px;
 }
 
+figcaption {
+    font-size: smaller;
+}
+
 a {
     background-color: transparent;
 }
