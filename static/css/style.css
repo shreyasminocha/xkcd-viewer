@@ -165,6 +165,19 @@ img {
     max-width: 100%;
 }
 
+.meta {
+    list-style: none;
+}
+
+.meta li {
+    display: inline;
+    margin-right: 2ch;
+}
+
+.meta li:last-child {
+    margin-right: 0;
+}
+
 .tools, nav ul {
     list-style: none;
 }

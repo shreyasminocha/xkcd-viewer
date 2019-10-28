@@ -2,8 +2,11 @@ extends layout
 
 block content
     h1=safe_title
-    
-    small Randall Munroe &middot; #{year}&#x2011;#{month}&#x2011;#{day} &middot; xkcd #{num}
+
+    ul.meta
+        li Randall Munroe
+        li: time(datetime=`${year}-${month}-${day}`) #{year}&#x2011;#{month}&#x2011;#{day}
+        li xkcd #{num}
 
     figure
         img(src=img, alt=`xkcd ${num}`, title=alt)
