@@ -49,13 +49,6 @@ article, aside, footer, header, nav, section {
     display: block;
 }
 
-h1 {
-    font-family: 'Patrick Hand';
-    font-size: 3em;
-    line-height: 1.2;
-    margin: 0;
-}
-
 figcaption, figure, main {
     display: block;
 }
@@ -96,6 +89,14 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     letter-spacing:-0.1rem;
     margin-top: 0;
+}
+
+h1 {
+    font-family: 'Patrick Hand';
+    font-size: 3em;
+    line-height: 1.2;
+    margin: 0;
+    margin-top: 1em;
 }
 
 h2 {
