@@ -12,7 +12,7 @@ app.set('view engine', 'pug');
 app.use(express.static('./static'));
 app.use(logger('dev'));
 
-app.get('/random', async (request, res, next) => {
+app.get('/random', async (request, response, next) => {
     let randomComic;
 
     try {
@@ -28,10 +28,10 @@ app.get('/random', async (request, res, next) => {
         comicUrl.replace('https://xkcd.com/', '').replace('/', '')
     );
 
-    res.redirect(`/${comicNumber}`);
+    response.redirect(`/${comicNumber}`);
 });
 
-app.get('/:comic?', async (request, res, next) => {
+app.get('/:comic?', async (request, response, next) => {
     const number = request.params.comic;
 
     let body;
@@ -49,23 +49,23 @@ app.get('/:comic?', async (request, res, next) => {
         body.isLatest = true;
     }
 
-    res.render('comic', body);
+    response.render('comic', body);
 });
 
-app.use((error, request, res) => {
-    res.locals.safe_title = error.message; // eslint-disable-line camelcase
-    res.locals.message = error.message;
+app.use((error, request, response) => {
+    response.locals.safe_title = error.message; // eslint-disable-line camelcase
+    response.locals.message = error.message;
 
     if (process.env.DEBUG !== undefined) {
-        res.locals.trace = error;
+        response.locals.trace = error;
     }
 
     if (error.message === 'Response code 404 (Not Found)') {
         error.status = 404;
     }
 
-    res.status(error.status || 500);
-    res.render('error');
+    response.status(error.status || 500);
+    response.render('error');
 });
 
 app.listen(process.env.PORT || 3000);
