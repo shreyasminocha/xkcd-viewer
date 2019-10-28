@@ -2,6 +2,7 @@ import express from 'express';
 import get from 'got';
 import logger from 'morgan';
 import zeroPad from 'zero-pad';
+import getComicData from './util/get-comic-data.mjs';
 
 const app = express();
 
@@ -10,11 +11,6 @@ app.set('view engine', 'pug');
 
 app.use(express.static('./static'));
 app.use(logger('dev'));
-
-function getComicData(number) {
-    number = number || '';
-    return get(`https://xkcd.com/${number}/info.0.json`);
-}
 
 app.get('/random', async (request, res, next) => {
     let randomComic;
@@ -38,12 +34,10 @@ app.get('/random', async (request, res, next) => {
 app.get('/:comic?', async (request, res, next) => {
     const number = request.params.comic;
 
-    let response;
     let body;
 
     try {
-        response = await getComicData(number);
-        body = JSON.parse(response.body);
+        body = await getComicData(number);
     } catch (error) {
         next(error);
     }
