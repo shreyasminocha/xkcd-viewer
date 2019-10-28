@@ -9,7 +9,7 @@ block content
         li xkcd #{num}
 
     figure
-        img(src=img, alt=`xkcd ${num}`, title=alt)
+        img(src=img, alt=`${safe_title}`, title=alt)
         figcaption=alt
 
     ul.tools
