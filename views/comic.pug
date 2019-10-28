@@ -20,20 +20,20 @@ block content
     nav
         ul
             unless num == 1
-                li: a(href='/1')
+                li: a(href='/1' first)
                     img(src='/img/icons/first.svg' alt='First' title='First')
 
-                li: a(href=`/${num - 1}`)
+                li: a(href=`/${num - 1}` prev)
                     img(src='/img/icons/previous.svg' alt='Previous' title='Previous')
 
             li: a(href='/random')
                 img(src='/img/icons/random.svg' alt='Random' title='Random')
 
             unless isLatest
-                li: a(href=`/${num + 1}`)
+                li: a(href=`/${num + 1}` next)
                     img(src='/img/icons/next.svg' alt='Next' title='Next')
 
-                li: a(href='/')
+                li: a(href='/' last)
                     img(src='/img/icons/latest.svg' alt='Latest' title='Latest')
 
 
