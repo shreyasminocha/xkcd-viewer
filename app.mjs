@@ -17,20 +17,22 @@ function getComicData(number) {
 }
 
 app.get('/random', async (request, res, next) => {
-    let response;
-    let body;
+    let randomComic;
 
     try {
-        response = await getComicData();
-        body = JSON.parse(response.body);
+        randomComic = await get('https://c.xkcd.com/random/comic', {
+            followRedirect: false
+        });
     } catch (error) {
         next(error);
     }
 
-    const latest = body.num;
-    const random = Math.floor(Math.random() * latest) + 1;
+    const comicUrl = randomComic.headers.location;
+    const comicNumber = Number(
+        comicUrl.replace('https://xkcd.com/', '').replace('/', '')
+    );
 
-    res.redirect(`/${random}`);
+    res.redirect(`/${comicNumber}`);
 });
 
 app.get('/:comic?', async (request, res, next) => {
