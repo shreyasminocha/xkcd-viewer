@@ -1,10 +1,10 @@
-import get from 'got';
+import http from 'got';
 
 async function randomComic(request, response, next) {
     let randomComic;
 
     try {
-        randomComic = await get('https://c.xkcd.com/random/comic', {
+        randomComic = await http.get('https://c.xkcd.com/random/comic', {
             followRedirect: false
         });
     } catch (error) {
