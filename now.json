@@ -1,5 +1,8 @@
 {
     "version": 2,
     "name": "xkcd",
-    "alias": "xkcd-viewer"
+    "alias": "xkcd-viewer",
+    "builds": [
+        { "src": "src/app.mjs", "use": "@now/node-server" }
+    ]
 }
