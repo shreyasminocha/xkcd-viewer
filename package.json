@@ -33,10 +33,6 @@
         "url": "https://github.com/shreyasminocha/xkcd-viewer/issues"
     },
     "homepage": "https://github.com/shreyasminocha/xkcd-viewer#readme",
-    "now": {
-        "name": "xkcd",
-        "alias": "xkcd-viewer"
-    },
     "xo": {
         "space": 4
     }
