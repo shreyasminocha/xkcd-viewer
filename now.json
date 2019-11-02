@@ -3,6 +3,6 @@
     "name": "xkcd",
     "alias": "xkcd-viewer",
     "builds": [
-        { "src": "src/app.mjs", "use": "@now/node-server" }
+        { "src": "server/app.mjs", "use": "@now/node-server" }
     ]
 }
