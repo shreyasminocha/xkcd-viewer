@@ -1,9 +1,11 @@
 # xkcd-viewer
 
-I did this project to get some exposure to the [express framework](//expressjs.com).
+An alternate front-end for consuming the [xkcd](//xkcd.com) webcomic.
 
 ## Features
 
+- Minimal
+- Responsive
 - Alt/title text below the image.
 - Each comic links to its [explainxkcd](//explainxkcd.com) page.
 - Each comic has a download link.
