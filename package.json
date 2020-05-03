@@ -1,43 +1,47 @@
 {
-    "name": "xkcd-viewer",
-    "version": "0.1.0",
-    "scripts": {
-        "start": "node --experimental-modules --no-warnings server/app.mjs",
-        "test": "xo"
-    },
-    "dependencies": {
-        "debug": "^3.1.0",
-        "express": "^4.16.3",
-        "got": "^8.3.2",
-        "morgan": "^1.9.0",
-        "pug": "^2.0.3",
-        "zero-pad": "^1.1.0"
-    },
-    "description": "Provides a neat interface to browse xkcd",
-    "main": "./server/app.mjs",
-    "devDependencies": {
-        "xo": "^0.24.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/shreyasminocha/xkcd-viewer.git"
-    },
-    "keywords": [
-        "xkcd",
-        "viewer",
-        "xkcd-viewer"
-    ],
-    "author": "Shreyas Minocha",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/shreyasminocha/xkcd-viewer/issues"
-    },
-    "homepage": "https://github.com/shreyasminocha/xkcd-viewer#readme",
-    "now": {
-        "name": "xkcd",
-        "alias": "xkcd-viewer"
-    },
-    "xo": {
-        "space": 4
-    }
+  "name": "xkcd-viewer",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node --experimental-modules --no-warnings server/app.mjs",
+    "test": "xo",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "dependencies": {
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "got": "^8.3.2",
+    "morgan": "^1.9.0",
+    "pug": "^2.0.3",
+    "zero-pad": "^1.1.0",
+    "snyk": "^1.316.2"
+  },
+  "description": "Provides a neat interface to browse xkcd",
+  "main": "./server/app.mjs",
+  "devDependencies": {
+    "xo": "^0.24.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shreyasminocha/xkcd-viewer.git"
+  },
+  "keywords": [
+    "xkcd",
+    "viewer",
+    "xkcd-viewer"
+  ],
+  "author": "Shreyas Minocha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shreyasminocha/xkcd-viewer/issues"
+  },
+  "homepage": "https://github.com/shreyasminocha/xkcd-viewer#readme",
+  "now": {
+    "name": "xkcd",
+    "alias": "xkcd-viewer"
+  },
+  "xo": {
+    "space": 4
+  },
+  "snyk": true
 }
